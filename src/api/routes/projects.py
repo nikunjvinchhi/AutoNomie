@@ -9,16 +9,29 @@ router = APIRouter()
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=ProjectResponse)
 async def create_project(project: ProjectCreate, db: Session = Depends(get_db)):
-    db_project = Project(**project.dict())
-    db.add(db_project)
-    db.commit()
-    db.refresh(db_project)
-    return db_project
+    try:
+        db_project = Project(**project.dict())
+        db.add(db_project)
+        db.commit()
+        db.refresh(db_project)
+        return db_project
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to create project"
+        )
 
 @router.get("/", response_model=List[ProjectResponse])
 async def list_projects(db: Session = Depends(get_db)):
-    projects = db.query(Project).all()
-    return projects
+    try:
+        projects = db.query(Project).all()
+        return projects
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to retrieve projects"
+        )
 
 @router.get("/{project_id}", response_model=ProjectResponse)
 async def get_project(project_id: int, db: Session = Depends(get_db)):
