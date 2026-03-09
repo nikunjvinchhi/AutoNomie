@@ -15,9 +15,7 @@ def test_project_creation(test_db):
     project = Project(
         name="Test Project",
         description="Test description",
-        status="active",
-        client_info="Test Client",
-        repository_url="https://github.com/test/repo"
+        status="active"
     )
     test_db.add(project)
     test_db.commit()
