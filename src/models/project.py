@@ -15,9 +15,9 @@ class Project(Base, TimestampMixin):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     description: Mapped[str] = mapped_column(Text)
-    status: Mapped[ProjectStatus] = mapped_column(
-        Enum(ProjectStatus),
-        default=ProjectStatus.ACTIVE
+    status: Mapped[str] = mapped_column(
+        Enum("active", "completed", "paused", "cancelled", name="project_status"),
+        default="active"
     )
-    client_info: Mapped[str] = mapped_column(Text, nullable=True)
-    repository_url: Mapped[str] = mapped_column(String(500), nullable=True)
+    client_info: Mapped[str] = mapped_column(Text)
+    repository_url: Mapped[str] = mapped_column(String(500))
