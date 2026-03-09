@@ -9,7 +9,7 @@ router = APIRouter()
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=ProjectResponse)
 async def create_project(project: ProjectCreate, db: Session = Depends(get_db)):
-    db_project = Project(**project.model_dump())
+    db_project = Project(**project.dict())
     db.add(db_project)
     db.commit()
     db.refresh(db_project)
