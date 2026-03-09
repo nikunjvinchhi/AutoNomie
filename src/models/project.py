@@ -19,5 +19,10 @@ class Project(Base, TimestampMixin):
         Enum(ProjectStatus),
         default=ProjectStatus.ACTIVE
     )
-    client_info: Mapped[str] = mapped_column(Text)
-    repository_url: Mapped[str] = mapped_column(String(500))
+    client_info: Mapped[str] = mapped_column(Text, nullable=True)
+    repository_url: Mapped[str] = mapped_column(String(500), nullable=True)
+
+    def __init__(self, **kwargs):
+        if 'status' in kwargs and isinstance(kwargs['status'], str):
+            kwargs['status'] = ProjectStatus(kwargs['status'])
+        super().__init__(**kwargs)
