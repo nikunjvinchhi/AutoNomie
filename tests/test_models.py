@@ -2,7 +2,7 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from src.models.base import Base
-from src.models.project import Project
+from src.models.project import Project, ProjectStatus
 
 @pytest.fixture
 def test_db():
