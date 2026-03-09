@@ -19,17 +19,5 @@ class Project(Base, TimestampMixin):
         Enum(ProjectStatus),
         default=ProjectStatus.ACTIVE
     )
-    client_info: Mapped[str] = mapped_column(Text, nullable=True)
-    repository_url: Mapped[str] = mapped_column(String(500), nullable=True)
-
-    def __init__(self, **kwargs):
-        # Handle string to enum conversion for status
-        if 'status' in kwargs and isinstance(kwargs['status'], str):
-            status_str = kwargs['status']
-            for status_enum in ProjectStatus:
-                if status_enum.value == status_str:
-                    kwargs['status'] = status_enum
-                    break
-            else:
-                raise ValueError(f"Invalid status: {status_str}")
-        super().__init__(**kwargs)
+    client_info: Mapped[str] = mapped_column(Text)
+    repository_url: Mapped[str] = mapped_column(String(500))
