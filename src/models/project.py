@@ -1,5 +1,5 @@
 from sqlalchemy import String, Text, Enum
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .base import Base, TimestampMixin
 import enum
 
@@ -21,6 +21,9 @@ class Project(Base, TimestampMixin):
     )
     client_info: Mapped[str] = mapped_column(Text, nullable=True)
     repository_url: Mapped[str] = mapped_column(String(500), nullable=True)
+
+    # Relationships
+    conversations: Mapped[list["Conversation"]] = relationship("Conversation", back_populates="project")
 
     def __init__(self, **kwargs):
         if 'status' in kwargs and isinstance(kwargs['status'], str):
