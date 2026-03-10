@@ -26,8 +26,8 @@ class Conversation(Base, TimestampMixin):
         default=ConversationPhase.INTRODUCTION
     )
     completion_percentage: Mapped[float] = mapped_column(Float, default=0.0)
-    participant_info: Mapped[dict] = mapped_column(JSON)
-    conversation_context: Mapped[dict] = mapped_column(JSON)
+    participant_info: Mapped[dict] = mapped_column(JSON, nullable=True)
+    conversation_context: Mapped[dict] = mapped_column(JSON, nullable=True)
     status: Mapped[ConversationStatus] = mapped_column(
         Enum(ConversationStatus),
         default=ConversationStatus.ACTIVE
