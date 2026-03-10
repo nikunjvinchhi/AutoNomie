@@ -17,11 +17,3 @@ services:
       - key: OPENAI_API_KEY
         sync: false
     healthCheckPath: /health
-
-  - type: static
-    name: autonomie-client
-    buildCommand: "cd frontend && npm install && npm run build"
-    staticPublishPath: ./frontend/build
-    envVars:
-      - key: REACT_APP_API_URL
-        value: https://autonomie-api.onrender.com
