@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from .database import create_tables
 from .api.routes import projects
+from .api.routes import spec_agent
 
 app = FastAPI(
     title="AutoNomie API",
@@ -26,3 +27,4 @@ async def health_check():
     return {"status": "healthy"}
 
 app.include_router(projects.router, prefix="/projects", tags=["projects"])
+app.include_router(spec_agent.router, prefix="/spec-agent", tags=["spec-agent"])
