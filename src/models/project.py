@@ -24,6 +24,7 @@ class Project(Base, TimestampMixin):
 
     # Relationships
     conversations: Mapped[list["Conversation"]] = relationship("Conversation", back_populates="project")
+    specifications: Mapped[list["Specification"]] = relationship("Specification", back_populates="project")
 
     def __init__(self, **kwargs):
         if 'status' in kwargs and isinstance(kwargs['status'], str):

@@ -35,3 +35,5 @@ class Conversation(Base, TimestampMixin):
 
     # Relationships
     project: Mapped["Project"] = relationship("Project", back_populates="conversations")
+    requirements: Mapped[list["Requirement"]] = relationship("Requirement", back_populates="conversation")
+    specifications: Mapped[list["Specification"]] = relationship("Specification", back_populates="conversation")
