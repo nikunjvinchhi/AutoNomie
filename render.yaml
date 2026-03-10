@@ -18,9 +18,8 @@ services:
         sync: false
     healthCheckPath: /health
 
-  - type: web
+  - type: static
     name: autonomie-client
-    env: node
     buildCommand: "cd frontend && npm install && npm run build"
     staticPublishPath: ./frontend/build
     envVars:
